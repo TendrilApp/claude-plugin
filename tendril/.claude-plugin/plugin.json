@@ -1,6 +1,6 @@
 {
   "name": "tendril",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Figma design systems → pixel-verified React components. Records from Figma, generates, and certifies against the recording with a local ruler.",
   "author": {
     "name": "Tendril"
@@ -11,7 +11,7 @@
       "args": [
         "-y",
         "-p",
-        "@tendrilapp/cli",
+        "@tendrilapp/cli@latest",
         "tendril-mcp"
       ]
     }
