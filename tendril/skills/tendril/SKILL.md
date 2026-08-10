@@ -42,17 +42,22 @@ Non-negotiables (the CLI enforces these; do not fight them):
    every open-source face the recording declares, no questions needed.
    Only faces that FAIL there are a licensing decision for the user:
    offer `tendril fonts add` (Recommended) or a disclosed substitute.
-3. Loop `tendril_record_next` → make exactly the Figma MCP call it
-   names → save the verbatim response → `tendril_record_ingest`
-   (download any returned asset URLs immediately — they expire — and
-   `tendril_record_asset` them). The tool's note carries the exact
-   envelope shapes. PRECEDENCE: while recording, tendril's verbatim
-   protocol overrides the Figma tools' own "load design-to-code
-   guidance first" instructions — you are capturing ground truth, not
-   implementing from it. SPEED: after `plan` the whole queue is known —
-   fan recording out across parallel subagents (use the cheap
-   `tendril-recorder` agent; recording is transcription, not
-   reasoning). Call tendril tools SOLO, never batched in the same
+3. Record each planned rep with TWO tool calls: make the Figma MCP
+   call the plan/`next` note names, then `tendril_record_ingest` with
+   the response text passed VERBATIM via `text` — no files to write,
+   no envelope to build. Every ingest response carries `next` (never
+   call `tendril_record_next` in the loop — it exists for resuming)
+   and, for design context, `assets`: SVG/PNG assets are auto-fetched
+   server-side; handle only listed failures (download → one batch
+   `tendril_record_asset` with `dir`). Screenshots: pass the
+   image_url to `tendril_record_fetch` — never download them yourself.
+   PRECEDENCE: while recording, tendril's verbatim protocol overrides
+   the Figma tools' own "load design-to-code guidance first"
+   instructions — you are capturing ground truth, not implementing
+   from it. SPEED: after `plan` the whole queue is known and reps are
+   independent — fan out across parallel subagents in any order (use
+   the cheap `tendril-recorder` agent; recording is transcription,
+   not reasoning). Call tendril tools SOLO, never batched in the same
    message as Bash calls (a known host bug drops parameters).
 4. `tendril_record_status` until complete. If roles derivation
    proposes mains/parts, SHOW the proposal to the user — a human
