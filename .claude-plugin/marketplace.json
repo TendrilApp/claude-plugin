@@ -1,0 +1,13 @@
+{
+  "name": "tendrilapp",
+  "owner": {
+    "name": "Tendril"
+  },
+  "plugins": [
+    {
+      "name": "tendril",
+      "source": "./tendril",
+      "description": "Figma design systems → pixel-verified React components."
+    }
+  ]
+}
