@@ -25,12 +25,15 @@ Non-negotiables (the CLI enforces these; do not fight them):
 1. Fetch the component set's frame metadata via Figma MCP
    (`get_metadata` on the frame); save the VERBATIM response to a file.
 2. `tendril_record_plan` with that file → the queue plan. The plan
-   records the FULL variant matrix by default — every pose the set
-   defines. Never pass `sample` unless the user explicitly accepts
-   partial coverage: sampling is blind to multi-axis interactions
-   (measured: variant × tone crossed poses shipped wrong paint), and
-   unrecorded poses get implemented by inference and checked by
-   nothing. The plan output carries USER QUESTIONS — render each to a
+   records the FULL variant matrix — every pose the set defines
+   (sampling exists only as a human-run CLI flag; the MCP surface
+   cannot sample). CROSS-CHECK `variantsFound` in the plan output
+   against the variant count Figma's UI shows for the component set —
+   a lower number means the metadata transfer lost variants (the
+   output flags `metadataTruncated` when it can tell): re-fetch the
+   metadata before recording. Re-running plan on a set recorded under
+   an older sampled plan TOPS UP the missing poses automatically.
+   The plan output carries USER QUESTIONS — render each to a
    present user and feed the answer back mechanically; never answer
    for them, and in a non-interactive run follow the question's stated
    fallback:
@@ -146,10 +149,15 @@ scores, behaviors, composition — and writes evidence images
 no account, always. Show the user the summary line and where the
 evidence lives.
 
-NEVER re-score or verify a bundle against a DIFFERENT recording set
-than the one it is bound to — scoring rewrites the bundle's
-verification identity, and the CLI now refuses unless `rebind` is
-passed explicitly. Rebinding is a user decision; ask first.
+NEVER re-score a bundle against a DIFFERENT recording set than the one
+it is bound to — scoring rewrites the bundle's verification identity
+and its evidence images, and `engine score` refuses unless `rebind` is
+passed explicitly. Rebinding is a user decision; ask first. (`verify`
+does not rewrite the binding; it warns on set drift and reports
+honestly.) The verify report's coverage now includes the LATTICE
+denominator — if it prints INCOMPLETE with unrecorded poses, the
+component is not done: record the missing poses (re-running plan tops
+up sets recorded under the old sampled default).
 
 ## Code Connect (extra value, after verify passes)
 
@@ -161,4 +169,8 @@ Connect is unavailable below those). You need the component set's
 figma.com URL (node-id included). Publishing is the USER'S action with
 their token — `npx @figma/code-connect connect publish` — or, if this
 session has the Figma MCP's code-connect write tools, offer to publish
-the mapping through those after showing the user the template.
+the equivalent mapping through those after showing the user the
+template (those tools take structured mappings — translate the
+template's url/source/component and prop maps into their schema; they
+do not accept the .figma.ts file itself). The emitter refuses when the
+recording set has drifted since scoring — re-verify first.
