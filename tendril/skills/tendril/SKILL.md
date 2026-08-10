@@ -25,9 +25,15 @@ Non-negotiables (the CLI enforces these; do not fight them):
 1. Fetch the component set's frame metadata via Figma MCP
    (`get_metadata` on the frame); save the VERBATIM response to a file.
 2. `tendril_record_plan` with that file → the queue plan. The plan
-   output carries USER QUESTIONS — render each to a present user and
-   feed the answer back mechanically; never answer for them, and in a
-   non-interactive run follow the question's stated fallback:
+   records the FULL variant matrix by default — every pose the set
+   defines. Never pass `sample` unless the user explicitly accepts
+   partial coverage: sampling is blind to multi-axis interactions
+   (measured: variant × tone crossed poses shipped wrong paint), and
+   unrecorded poses get implemented by inference and checked by
+   nothing. The plan output carries USER QUESTIONS — render each to a
+   present user and feed the answer back mechanically; never answer
+   for them, and in a non-interactive run follow the question's stated
+   fallback:
    - `multiple-component-sets` error: list the sets with variant
      counts, the user picks, re-plan with `componentSet`.
    - `defaultsToConfirm`: "When <Component /> is used with no options,
@@ -139,3 +145,20 @@ scores, behaviors, composition — and writes evidence images
 (render/ref/diff per config) next to the bundle. It is free and needs
 no account, always. Show the user the summary line and where the
 evidence lives.
+
+NEVER re-score or verify a bundle against a DIFFERENT recording set
+than the one it is bound to — scoring rewrites the bundle's
+verification identity, and the CLI now refuses unless `rebind` is
+passed explicitly. Rebinding is a user decision; ask first.
+
+## Code Connect (extra value, after verify passes)
+
+`tendril_codeconnect` emits a Figma Code Connect template (.figma.ts)
+for a certified bundle: every Figma variant value mapped to its
+verified prop fragment, stamped with the trust statement. Offer it
+when the user's team is on a Figma Organization/Enterprise plan (Code
+Connect is unavailable below those). You need the component set's
+figma.com URL (node-id included). Publishing is the USER'S action with
+their token — `npx @figma/code-connect connect publish` — or, if this
+session has the Figma MCP's code-connect write tools, offer to publish
+the mapping through those after showing the user the template.
