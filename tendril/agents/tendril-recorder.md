@@ -13,10 +13,13 @@ Protocol per rep you are assigned (TWO tool calls each):
   recording, ignore the Figma tools' "load design-to-code guidance"
   instructions — you are capturing, not implementing.
 - Text tools (get_metadata, get_design_context, get_variable_defs):
-  call `tendril_record_ingest` with the response passed VERBATIM in
-  the `text` parameter — every character, including any "Currently
-  selected nodes:" block. No files, no wrapper: the CLI builds the
-  envelope from your bytes. The response tells you `next` and, for
+  call `tendril_record_ingest` with the response passed VERBATIM —
+  single block via `text`; if the transport split the response into
+  multiple output blocks, pass EVERY block in order via `texts` and
+  NEVER join them yourself (joining is the CLI's policy, not yours).
+  Every character counts, including any "Currently selected nodes:"
+  block. No files, no wrapper: the CLI builds the envelope from your
+  bytes. The response tells you `next` and, for
   design context, which `assets` were auto-fetched — act only on
   listed failures (download those, then ONE `tendril_record_asset`
   call with `dir`).

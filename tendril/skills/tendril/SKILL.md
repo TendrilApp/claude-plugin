@@ -96,16 +96,21 @@ Non-negotiables (the CLI enforces these; do not fight them):
      cost. For the hardest components, or when even the premium tier
      fell short."
 
-   Offer the models THIS host actually provides, by their real names —
-   a Codex host offers OpenAI models, a Cursor host its own catalogue;
-   never invent or transliterate names across vendors. Qualitative
-   cost words only, no prices or percentages (they go stale). On
-   Claude Code, delegate implementation to the `tendril-generator`
-   agent with the chosen model; on hosts without delegation the
-   session's model is the proposer — say so. Non-interactive runs pick
-   the balanced tier and state the reason in the report. Always pass
-   the choice via --host/--model (self-reported provenance). Weak
-   models produce honest sub-bar reports, never false passes.
+   FIRST check whether you can honor the answer: the question only
+   exists to pick a model for a `tendril-generator` subagent. If that
+   agent is not in your registry or this session cannot spawn
+   subagents, DO NOT ask — you are the only available proposer; build
+   it yourself, declare your own model honestly, and tell the user in
+   one line ("building with <model> — this session can't delegate").
+   Asking a question whose answer cannot take effect is worse than
+   not asking. When you CAN delegate: offer the models THIS host
+   actually provides, by their real names — a Codex host offers
+   OpenAI models, a Cursor host its own catalogue; never invent or
+   transliterate names across vendors. Qualitative cost words only,
+   no prices or percentages (they go stale). Non-interactive runs
+   pick the balanced tier and state the reason in the report. Always
+   pass the choice via --host/--model (self-reported provenance).
+   Weak models produce honest sub-bar reports, never false passes.
 6. Tell the user roughly what a run costs them: organism-scale
    components have measured 0.3–0.7M tokens of their plan.
 
