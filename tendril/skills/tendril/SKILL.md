@@ -66,8 +66,16 @@ Non-negotiables (the CLI enforces these; do not fight them):
    from it. SPEED: after `plan` the whole queue is known and reps are
    independent — fan out across parallel subagents in any order (use
    the cheap `tendril-recorder` agent; recording is transcription,
-   not reasoning). Call tendril tools SOLO, never batched in the same
-   message as Bash calls (a known host bug drops parameters).
+   not reasoning). If this session cannot spawn subagents or the
+   `tendril-recorder` agent is not in your registry, record serially
+   yourself with the same two-call loop — the fallback changes WHO
+   records, never WHAT: every planned pose still gets recorded, and
+   sampling to save calls is not an option. Call tendril tools SOLO,
+   never batched in the same message as Bash calls (a known host bug
+   drops parameters). SOLO scopes the message, not the work: one
+   tendril call per message, but a single `tendril_record_plan` call
+   still covers the ENTIRE component set — never plan per-variant,
+   and never pause between reps to ask about the next one.
 4. `tendril_record_status` until complete. If roles derivation
    proposes mains/parts, SHOW the proposal to the user — a human
    confirms in their terminal, not you.
