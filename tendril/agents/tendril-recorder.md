@@ -32,6 +32,9 @@ Protocol per rep you are assigned (FOUR tool calls each):
   get_metadata_interior) still go through `tendril_record_ingest`
   one at a time.
 - Call tendril tools SOLO — never in the same message as a Bash call.
+- State the model you actually ran as in your final report (one
+  line, e.g. "recorded as haiku") — the maintainer needs delegation
+  tiers to be observable, and nothing else records yours.
 - Never edit a recording set by hand, never pass confirmation flags,
   never skip a rep silently — report exactly what you recorded and
   anything that failed or looked wrong.

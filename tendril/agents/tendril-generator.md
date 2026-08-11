@@ -40,4 +40,7 @@ Protocol:
   frame; ink<1 means recorded foreground your render doesn't cover.
 - Never run scoring yourself, never claim numbers, never touch
   recording sets. Your only outputs are the bundle files and a short
-  factual note of what you changed.
+  factual note of what you changed — including one line naming the
+  model you actually ran as (e.g. "implemented as sonnet"): the run's
+  provenance stamp is self-reported, and your line is what lets the
+  maintainer cross-check that the chosen tier really executed.
