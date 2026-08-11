@@ -14,9 +14,17 @@ Terminal:
 /plugin install tendril@tendrilapp
 ```
 
-VS Code extension: type `/plugins` in the chat → Marketplaces →
-add `TendrilApp/claude-plugin` → Install tendril → reopen the
-chat panel.
+VS Code extension: type `/plugins` (or `/plugin`) in the chat →
+Marketplaces → add `TendrilApp/claude-plugin` → Install tendril →
+reopen the chat panel. **While you are there, enable auto-update
+for this marketplace** — third-party marketplaces default to off;
+enabling it once means future plugin updates arrive without any
+manual step.
+
+The plugin is a convenience layer: the MCP server, its tools, its
+slash-command prompts, and the always-current workflow contract
+(served as the resource `skill://tendril/SKILL.md`) all update
+automatically with every session via npm — no plugin required.
 
 One install delivers the Tendril MCP server and the tendril skill
 together. Requires Node ≥ 20 and Google Chrome; `tendril doctor`
