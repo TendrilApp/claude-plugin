@@ -7,20 +7,34 @@ result against the recording with a local ruler.
 
 ## Install (inside Claude Code)
 
+Terminal:
+
 ```
 /plugin marketplace add TendrilApp/claude-plugin
 /plugin install tendril@tendrilapp
 ```
 
+VS Code extension: type `/plugins` in the chat → Marketplaces →
+add `TendrilApp/claude-plugin` → Install tendril → reopen the
+chat panel.
+
 One install delivers the Tendril MCP server and the tendril skill
 together. Requires Node ≥ 20 and Google Chrome; `tendril doctor`
 (from the `@tendrilapp/cli` npm package) prints a readiness report.
 
-**Staying up to date:** third-party marketplaces do not auto-update
-by default — either run `/plugin update tendril` occasionally, or
-enable auto-update for this marketplace in `/plugin` → Marketplaces.
-(The MCP server itself always runs the latest published Tendril
-release; plugin updates cover the skill and agents.)
+**Staying up to date:** the MCP server always runs the latest
+published Tendril release automatically. The plugin's own content
+(skill, agents, commands) does not auto-update on third-party
+marketplaces — update it per surface:
+
+- **Terminal Claude Code:** `claude plugin update tendril` (or the
+  `/plugin` manager), then `/reload-plugins`.
+- **VS Code extension:** type `/plugins` in the chat → Installed →
+  update tendril → close and reopen the chat panel. (Install works
+  the same way: `/plugins` → Marketplaces → add
+  `TendrilApp/claude-plugin` → Install.)
+- **Claude Desktop:** plugin management is not available there yet;
+  quit and relaunch to pick up cached updates.
 
 Verification (`tendril verify`) is local, account-less, and
 network-less — always.
