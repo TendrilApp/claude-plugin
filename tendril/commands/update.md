@@ -17,8 +17,11 @@ the user each step:
    command compares against a cached clone and can falsely report
    already-latest), then `claude plugin update tendril`, then
    `/reload-plugins`. VS Code extension: the `/plugins` panel has
-   no update button — uninstall tendril, reinstall it from the
-   marketplace, then close and reopen the chat panel. Desktop
+   no update button — Marketplaces tab: REFRESH tendrilapp FIRST
+   (a stale marketplace clone makes reinstall reinstall the old
+   version — measured), then Plugins tab: uninstall tendril,
+   reinstall it, then close and reopen the chat panel. If the
+   refresh doesn't take, remove and re-add the marketplace. Desktop
    app: no plugin management; quit and relaunch Claude Desktop.
 4. Confirm with the `tendril_doctor` MCP tool: report the version
    line. Never claim the update succeeded without that confirmation.

@@ -38,8 +38,11 @@ builds):
   command may falsely report already-latest), then
   `claude plugin update tendril`, then `/reload-plugins`.
 - **VS Code extension:** the `/plugins` panel has no update button —
-  uninstall tendril, reinstall it from the marketplace, then close
-  and reopen the chat panel.
+  Marketplaces tab: refresh `tendrilapp` FIRST (a stale marketplace
+  clone makes reinstall reinstall the old version), then Plugins
+  tab: uninstall tendril, reinstall it, close and reopen the chat
+  panel. If the refresh doesn't take, remove and re-add the
+  marketplace — a fresh clone cannot be stale.
 - **Claude Desktop:** no plugin management yet; quit and relaunch.
 
 Verification (`tendril verify`) is local, account-less, and
