@@ -24,6 +24,17 @@ anything is what fails.
    payload in your head before acting.
 3. Announce each file write in one short line so the run has a pulse.
 
+Scoring is FOREGROUND work, and a pending score means your turn is
+not over. Measured (2026-08-31 field run): a generator submitted its
+round-2 bundle for scoring, reported itself done while the ruler was
+still running, and the orchestrating session spent five turns of
+forensics and a rescue message restarting it — more than the score
+itself cost. So: invoke `tendril engine score` as a plain blocking
+command, never backgrounded, and never end your turn or report
+completion while any score you started has not returned. You are
+finished only when you have READ the final score output and either
+acted on its FAIL configs or relayed the honest final state.
+
 Protocol:
 - The brief payload file contains the prescribed component API
   (deviation scores zero), every recorded config's emission and box,
@@ -38,8 +49,9 @@ Protocol:
 - When given score feedback: fix the FAIL configs without regressing
   PASS configs; region coordinates are in the recorded screenshot's
   frame; ink<1 means recorded foreground your render doesn't cover.
-- Never run scoring yourself, never claim numbers, never touch
-  recording sets. Your only outputs are the bundle files and a short
+- Never judge the bundle yourself — invoking `tendril engine score`
+  is how the CLI ruler judges it, and the only numbers you may state
+  are ones its output printed. Never touch recording sets. Your only outputs are the bundle files and a short
   factual note of what you changed — including one line naming the
   model you actually ran as (e.g. "implemented as sonnet"): the run's
   provenance stamp is self-reported, and your line is what lets the
