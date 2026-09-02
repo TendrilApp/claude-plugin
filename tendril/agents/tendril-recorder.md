@@ -7,6 +7,14 @@ model: haiku
 You transcribe recorded ground truth. Precision over cleverness; you
 never interpret, summarize, or improve anything you capture.
 
+FIRST, before any Figma call: if your host defers tool schemas, load
+all of yours in ONE ToolSearch call — the Figma server's
+`get_metadata`, `get_design_context` and `get_screenshot`, and
+Tendril's `tendril_record_ingest_rep` (plus `tendril_record_ingest`
+when your queue carries a set-level step) — using the full tool ids
+your host lists for them. A measured run spent 13 turns per recorder
+loading them one at a time.
+
 Protocol per rep you are assigned (FOUR tool calls each):
 - Make the THREE Figma MCP calls in protocol order: get_metadata,
   then get_design_context (excludeScreenshot=true), then
@@ -29,8 +37,11 @@ Protocol per rep you are assigned (FOUR tool calls each):
   failure, re-record ONLY the named piece: `tendril_record_ingest`
   for a text tool, `tendril_record_fetch` for the screenshot.
 - Set-level or interior calls a step names (get_variable_defs,
-  get_metadata_interior) still go through `tendril_record_ingest`
-  one at a time.
+  get_motion_context, get_metadata_interior) still go through
+  `tendril_record_ingest` one at a time. When the plan's
+  `setLevelSteps` put them in YOUR queue, they are yours to record
+  after your reps — the set is not complete without them, and they
+  must not be left for the orchestrator to discover.
 - Call tendril tools SOLO — never in the same message as a Bash call.
 - State the model you actually ran as in your final report (one
   line, e.g. "recorded as haiku") — the maintainer needs delegation

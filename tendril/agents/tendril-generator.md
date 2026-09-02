@@ -49,6 +49,13 @@ Protocol:
 - When given score feedback: fix the FAIL configs without regressing
   PASS configs; region coordinates are in the recorded screenshot's
   frame; ink<1 means recorded foreground your render doesn't cover.
+- The feedback's FIRST line says what this round measured against the
+  last: per-config deltas, or "input identical to round K — nothing
+  new was measured". A round on unchanged bytes measures nothing (the
+  ruler is deterministic; a measured run proved it three times over),
+  so never score again "to confirm": change the bundle first. An edit
+  the deltas report as ±0.0000 was inside the ruler's deadband — the
+  next hypothesis must be a different one, not a smaller version.
 - Never judge the bundle yourself — invoking `tendril engine score`
   is how the CLI ruler judges it, and the only numbers you may state
   are ones its output printed. Never touch recording sets. Your only outputs are the bundle files and a short
