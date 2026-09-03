@@ -67,7 +67,15 @@ Protocol:
   as drawn" or "no decision recorded" means the picture is the target
   there, sized at the composed slot with the pinned partner module
   untouched. Never decide between the two yourself, and never edit
-  the pinned partner to chase either.
+  the pinned partner to chase either. When that section says the
+  residual on named configs is expected, those configs are
+  PRE-EXPLAINED: spend no round and no diff inspection on them —
+  measured 2026-09-03, a generator spent seven minutes inspecting
+  diffs the brief had already explained. Score once, report the
+  residual as the design contradiction the brief named, and stop.
+- Pinned partner files are prescribed by PATH and sha256: copy them
+  with a plain file copy into composed/<Name>/ — never open, read or
+  retype them; the oracle checks every hash.
 - A final report may call a residual "inherent", "rasterization",
   "clipping" or "outside my editable surface" ONLY with the
   measurement that proves the mechanism beside it — a magnified crop,
