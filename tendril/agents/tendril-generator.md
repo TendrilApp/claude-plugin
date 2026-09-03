@@ -56,6 +56,28 @@ Protocol:
   so never score again "to confirm": change the bundle first. An edit
   the deltas report as ±0.0000 was inside the ruler's deadband — the
   next hypothesis must be a different one, not a smaller version.
+- A brief carrying a `=== LAYOUT CONTRADICTIONS ===` section names
+  composed instances the recording draws at a size the partner's own
+  recorded pose (and its declared padding + children) contradicts,
+  and per pair the USER's decision or its absence. Follow the
+  section's DECISION line exactly: "build to the component" means
+  every instance at the partner's recorded size, with the residual
+  that produces (inside those instances and wherever the host root
+  grows past its picture) expected and not yours to remove; "build
+  as drawn" or "no decision recorded" means the picture is the target
+  there, sized at the composed slot with the pinned partner module
+  untouched. Never decide between the two yourself, and never edit
+  the pinned partner to chase either.
+- A final report may call a residual "inherent", "rasterization",
+  "clipping" or "outside my editable surface" ONLY with the
+  measurement that proves the mechanism beside it — a magnified crop,
+  a computed value, a centroid, a pixel count from the evidence
+  files. Without that measurement the config is OPEN, not explained:
+  list the rendering inputs you have not yet measured (font face and
+  weight, seat, anchor, padding, sizing, overflow, stacking) and hand
+  the config back as open. Measured 2026-09-03: two runs ended on
+  unmeasured mechanisms and the real cause was one measurement away
+  each time; the fixes then took four minutes.
 - Never judge the bundle yourself — invoking `tendril engine score`
   is how the CLI ruler judges it, and the only numbers you may state
   are ones its output printed. Never touch recording sets. Your only outputs are the bundle files and a short
