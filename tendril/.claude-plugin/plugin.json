@@ -1,10 +1,10 @@
 {
   "name": "tendril",
-  "version": "0.1.65",
   "description": "Figma design systems → pixel-verified React components. Records from Figma, generates, and certifies against the recording with a local ruler.",
   "author": {
     "name": "Tendril"
   },
+  "tendrilShimContract": 1,
   "mcpServers": {
     "tendril": {
       "command": "npx",

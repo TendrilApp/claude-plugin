@@ -9,19 +9,16 @@ the user each step:
 2. If the MCP server announced a stale version this session:
    `npm cache clean --force`, then tell the user to restart the
    session so the plugin's npx command re-resolves @latest.
-3. The PLUGIN itself is a thin shim (triggers, agents, commands)
-   that rarely changes — usually nothing to do. When a plugin
-   update IS announced, third-party marketplaces do not reliably
-   auto-update, so per surface: terminal Claude Code:
-   `claude plugin marketplace update tendrilapp` FIRST (the update
-   command compares against a cached clone and can falsely report
-   already-latest), then `claude plugin update tendril`, then
-   `/reload-plugins`. VS Code extension: the `/plugins` panel has
-   no update button — Marketplaces tab: REFRESH tendrilapp FIRST
-   (a stale marketplace clone makes reinstall reinstall the old
-   version — measured), then Plugins tab: uninstall tendril,
-   reinstall it, then close and reopen the chat panel. If the
-   refresh doesn't take, remove and re-add the marketplace. Desktop
-   app: no plugin management; quit and relaunch Claude Desktop.
+3. The PLUGIN itself is a thin shim (triggers, agent pointers,
+   commands) that changes only when its wiring changes, and it
+   updates itself once auto-update is on for its marketplace.
+   Only if doctor's plugin-skew line is not green: terminal Claude
+   Code — `claude plugin marketplace update tendrilapp`, then
+   `claude plugin update tendril`, then `/reload-plugins`; VS Code
+   extension — `/plugins` → Marketplaces tab: refresh tendrilapp,
+   then Plugins tab: uninstall tendril, reinstall it, close and
+   reopen the chat panel. Then have the user turn auto-update on
+   so it never recurs: `/plugin` → Marketplaces → tendrilapp →
+   Enable auto-update.
 4. Confirm with the `tendril_doctor` MCP tool: report the version
    line. Never claim the update succeeded without that confirmation.

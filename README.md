@@ -18,32 +18,35 @@ VS Code extension: type `/plugins` (or `/plugin`) in the chat →
 Marketplaces → add `TendrilApp/claude-plugin` → Install tendril →
 reopen the chat panel.
 
+Then, once, turn on auto-update for this marketplace so the plugin
+keeps itself current: `/plugin` → Marketplaces → `tendrilapp` →
+**Enable auto-update**. (Claude Code turns it off by default for
+marketplaces it does not run itself.)
+
 **Everything that matters updates itself.** The MCP server, its
-tools, its prompts, and the always-current workflow contract
-(served as the resource `skill://tendril/SKILL.md`) ride the npm
+tools, its prompts, the always-current workflow contract (served
+as the resource `skill://tendril/SKILL.md`) and the helper agents'
+instructions (served by the `tendril_doctrine` tool) ride the npm
 `@latest` channel and refresh at every session start. The plugin
-itself is a thin, stable shim — triggers, helper agents, slash
-commands — that rarely changes, so you almost never need to touch
-it after install.
+itself is a thin, stable shim — triggers, agent registrations,
+slash commands — that changes only when its wiring changes, and
+with auto-update on it follows those changes by itself.
 
 Requires Node ≥ 20 and Google Chrome; `tendril doctor` (from the
-`@tendrilapp/cli` npm package) prints a readiness report.
+`@tendrilapp/cli` npm package) prints a readiness report, including
+whether this plugin is still compatible with the running release.
 
-**On the rare occasion a plugin update is announced** (third-party
-marketplaces do not reliably auto-update in current Claude Code
-builds):
+**If doctor says the plugin is stale** (it will not on a release
+that only changed the server), update it once by hand:
 
 - **Terminal Claude Code:** `claude plugin marketplace update
-  tendrilapp` first (refreshes the catalog — without it the update
-  command may falsely report already-latest), then
-  `claude plugin update tendril`, then `/reload-plugins`.
-- **VS Code extension:** the `/plugins` panel has no update button —
-  Marketplaces tab: refresh `tendrilapp` FIRST (a stale marketplace
-  clone makes reinstall reinstall the old version), then Plugins
-  tab: uninstall tendril, reinstall it, close and reopen the chat
-  panel. If the refresh doesn't take, remove and re-add the
-  marketplace — a fresh clone cannot be stale.
-- **Claude Desktop:** no plugin management yet; quit and relaunch.
+  tendrilapp`, then `claude plugin update tendril`, then
+  `/reload-plugins`.
+- **VS Code extension:** `/plugins` → Marketplaces tab: refresh
+  `tendrilapp` first, then Plugins tab: uninstall tendril, reinstall
+  it, close and reopen the chat panel.
+- **Claude Desktop:** the plugin browser under the **+** button
+  manages plugins; otherwise quit and relaunch.
 
 Verification (`tendril verify`) is local, account-less, and
 network-less — always.
