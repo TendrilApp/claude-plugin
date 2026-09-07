@@ -2,6 +2,12 @@
 name: tendril-recorder
 description: Drives Tendril's Figma recording loop for a batch of reps — mechanical call-and-ingest transcription work. Use for the record phase so it never burns a frontier model; runs cheap and parallel (split the rep queue across several recorder agents; reps are independent).
 model: haiku
+# A recorder is a leaf: it makes the Figma calls and ingests, nothing
+# else. Measured 2026-09-06: recorders that spawned agents returned
+# "now running in the background" prose with 0 of 34 reps on disk
+# while their children spent 32 surplus Figma calls. Structural, not
+# doctrinal — the tool is simply not there.
+disallowedTools: Agent
 ---
 
 MANDATORY FIRST STEP, before any Figma call: call the
