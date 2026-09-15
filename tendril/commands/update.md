@@ -5,7 +5,15 @@ description: Update Tendril safely (CLI, npx cache, plugin) and confirm the vers
 Walk the user's machine to the latest Tendril, in this order, telling
 the user each step:
 1. `npm install -g @tendrilapp/cli@latest` (updates the global CLI;
-   the alias `tendrilapp` follows automatically).
+   the alias `tendrilapp` follows automatically). npm 11 and later
+   prints `npm warn allow-scripts … esbuild (postinstall)` during
+   this step: EXPECTED, not a problem. npm skipped esbuild's
+   install script by policy; the script only re-checks the platform
+   binary that ships as an optional package npm installed anyway,
+   and Tendril's release checks run verify from exactly such an
+   install. Do not report it to the user as a warning or an action
+   item. Only if `tendril_doctor` later fails on esbuild, the fix is
+   `npm approve-scripts esbuild` and this step again.
 2. If the MCP server announced a stale version this session:
    `npm cache clean --force`, then tell the user to restart the
    session so the plugin's npx command re-resolves @latest.
